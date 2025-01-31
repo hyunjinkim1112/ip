@@ -1,17 +1,26 @@
+import java.util.Scanner;
+
 public class Mary {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        String greeting = "____________________________________________________________ \n"
-        + "Hello! I'm Mary"
-        + "What can I do for you?"
-                + "____________________________________________________________"
-        +"Bye. Hope to see you again soon!"
-                + "___________________________________________________________";
-        System.out.println(greeting);
+        String hello = "____________________________________________________________ \n"
+                + "Hello! I'm Mary \n"
+                + "What can I do for you? \n"
+                + "____________________________________________________________ \n";
+
+        String bye = "____________________________________________________________ \n"
+                + "Bye. Hope to see you again soon! \n"
+                + "___________________________________________________________ \n";
+        System.out.println(hello);
+
+        String in = new Scanner(System.in).nextLine();
+        while (!in.equals("bye")) {
+            System.out.println("____________________________________________________________");
+            System.out.println(in);
+            System.out.println("____________________________________________________________");
+            in = new Scanner(System.in).nextLine();
+        }
+
+        System.out.println(bye);
+
     }
 }

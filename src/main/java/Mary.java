@@ -1,106 +1,105 @@
 import java.util.Scanner;
 
 public class Mary {
-
     public static final int MAX_TASKS = 100;
     public static final String LINE_SEPARATOR = "____________________________________________________________ ";
 
     public static void printHello() {
-        String hello = LINE_SEPARATOR + "\n"
-                + "Hello! I'm Mary \n"
-                + "What can I do for you? \n"
-                + LINE_SEPARATOR + "\n";
-        System.out.println(hello);
+        System.out.println(LINE_SEPARATOR);
+        System.out.println("Hello! I'm Mary");
+        System.out.println("What can I do for you?");
+        System.out.println(LINE_SEPARATOR);
+        System.out.print("Enter command (todo, deadline, event, list, mark, unmark, bye): ");
     }
 
     public static void printBye() {
-        String bye = LINE_SEPARATOR + "\n"
-                + "Bye. Hope to see you again soon! \n"
-                + LINE_SEPARATOR + "\n";
-        System.out.println(bye);
+        System.out.println(LINE_SEPARATOR);
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(LINE_SEPARATOR);
     }
 
-    public static void printList(Task[] taskList, int numTasks) {
-        System.out.println(LINE_SEPARATOR + "\n");
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numTasks; i++) {
-            Task task = taskList[i];
-            System.out.println((i + 1) + ".[" + task.getStatusIcon() + "] " + task.getDescription());
-        }
-        System.out.println(LINE_SEPARATOR + "\n");
-    }
-
-    public static void echoCommand(String command) {
-        System.out.println(LINE_SEPARATOR + "\n"
-                + "added: " + command + "\n"
-                + LINE_SEPARATOR + "\n");
-    }
-
-    public static void addToList(Task[] taskList, int numTasks, String command) {
-        Task task = new Task(command);
-        taskList[numTasks] = task;
-    }
-
-    public static String[] parseCommand(String command) {
-        return command.split(" ", 2);
-    }
-
-    public static void markTask(Task[] taskList, int taskIndex) {
-        taskList[taskIndex].setDone(true);
-    }
-
-    public static void printMark(Task[] taskList, int taskIndex) {
-        System.out.println(LINE_SEPARATOR + "\n" +
-                "Nice! I've marked this task as done: " + "\n" +
-                "\t [" + taskList[taskIndex].getStatusIcon() + "] " + taskList[taskIndex].getDescription() + "\n" +
-                LINE_SEPARATOR + "\n");
-    }
-
-    public static void unmarkTask(Task[] taskList, int taskIndex) {
-        taskList[taskIndex].setDone(false);
-    }
-
-    public static void printUnmark(Task[] taskList, int taskIndex) {
-        System.out.println(LINE_SEPARATOR + "\n" +
-                "OK, I've marked this task as not done yet: " + "\n" +
-                "\t [" + taskList[taskIndex].getStatusIcon() + "] " + taskList[taskIndex].getDescription() + "\n" +
-                LINE_SEPARATOR + "\n");
-    }
-
-    public static void main(String[] args) {
+    public static class TaskManager {
         Task[] taskList = new Task[MAX_TASKS];
         int numTasks = 0;
 
-        printHello();
+        public void addTask(Task task) {
+            taskList[numTasks] = task;
+            numTasks++;
+            System.out.println(LINE_SEPARATOR + "\nGot it. I've added this task:");
+            System.out.println("\t" + task.toString());
+            System.out.println("Now you have " + numTasks + " task(s) in the list.");
+            System.out.println(LINE_SEPARATOR);
+        }
 
-        while (true) {
-            String fullCommand = new Scanner(System.in).nextLine();
-            String[] partsCommand = parseCommand(fullCommand);
-            String command = partsCommand[0];
-            int taskIndex;
+        public void markTask(int taskIdx) {
+            taskList[taskIdx].setIsDone(true);
+            System.out.println(LINE_SEPARATOR + "\nNice! I've marked this task as done: ");
+            System.out.println("\t" + taskList[taskIdx].toString());
+            System.out.println(LINE_SEPARATOR);
+        }
+
+        public void unmarkTask(int taskIdx) {
+            taskList[taskIdx].setIsDone(false);
+            System.out.println(LINE_SEPARATOR + "\nNice! I've marked this task as not done yet: ");
+            System.out.println("\t" + taskList[taskIdx].toString());
+            System.out.println(LINE_SEPARATOR);
+        }
+
+        public void listTasks() {
+            if (numTasks == 0) {
+                System.out.println("No tasks available.");
+                return;
+            }
+            System.out.println(LINE_SEPARATOR +"\nHere are the tasks in your list:");
+            for (int i = 0; i < numTasks; i++) {
+                System.out.println("\t" + (i + 1) + ". " + taskList[i].toString());
+            }
+            System.out.println(LINE_SEPARATOR);
+        }
+
+        public void processCommand(String input) {
+            String[] parts = input.split(" ", 2);
+            String command = parts[0];
+            int taskIdx;
 
             switch (command) {
             case "list":
-                printList(taskList, numTasks);
-                continue;
-            case "bye":
-                printBye();
-                return;
+                listTasks();
+                break;
+            case "todo":
+                addTask(new Todo(parts[1], false));
+                break;
+            case "deadline":
+                String[] by = parts[1].split("/by");
+                addTask(new Deadline(by[0], by[1]));
+                break;
+            case "event":
+                String[] from = parts[1].split("/from");
+                String[] to = from[1].split("/to");
+                addTask(new Event(from[0], to[0], to[1]));
+                break;
             case "mark":
-                taskIndex = Integer.parseInt(partsCommand[1]) - 1;
-                markTask(taskList, taskIndex);
-                printMark(taskList, taskIndex);
-                continue;
+                taskIdx = Integer.parseInt(parts[1]) - 1;
+                markTask(taskIdx);
+                break;
             case "unmark":
-                taskIndex = Integer.parseInt(partsCommand[1]) - 1;
-                unmarkTask(taskList, taskIndex);
-                printUnmark(taskList, taskIndex);
-                continue;
-            default:
-                addToList(taskList, numTasks, fullCommand);
-                numTasks++;
-                echoCommand(fullCommand);
-                continue;
+                taskIdx = Integer.parseInt(parts[1]) - 1;
+                unmarkTask(taskIdx);
+                break;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        TaskManager manager = new TaskManager();
+        Scanner scanner = new Scanner(System.in);
+        printHello();
+        while (true) {
+            String command = scanner.nextLine();
+            manager.processCommand(command);
+            if (command.equals("bye")) {
+                printBye();
+                break;
             }
         }
     }

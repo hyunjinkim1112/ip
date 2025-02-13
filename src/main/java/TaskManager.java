@@ -35,7 +35,9 @@ public class TaskManager {
 
     public void listTasks() {
         if (numTasks == 0) {
+            System.out.println(LINE_SEPARATOR);
             System.out.println("No tasks available.");
+            System.out.println(LINE_SEPARATOR);
             return;
         }
         System.out.println(LINE_SEPARATOR +"\nHere are the tasks in your list:");
@@ -45,35 +47,82 @@ public class TaskManager {
         System.out.println(LINE_SEPARATOR);
     }
 
-    public void processCommand(String input) {
+    public void processCommand(String input) throws MaryException {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
+        String description;
         int taskIdx;
 
-        switch (command) {
-        case "list":
+        if (command.equals("list")) {
             listTasks();
-            break;
+            return;
+        }
+
+        try {
+            description = parts[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw MaryException.emptyDescription();
+        }
+        switch (command) {
         case "todo":
-            addTask(new Todo(parts[1], false));
+            addTask(new Todo(description, false));
             break;
         case "deadline":
-            String[] by = parts[1].split("/by");
-            addTask(new Deadline(by[0], by[1]));
+            try {
+                String[] by = description.split("/by");
+                String task = by[0];
+                String deadline = by[1];
+                addTask(new Deadline(task, deadline));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw MaryException.invalidDescription("please write in this format: deadline {name of the event} /by {time}");
+            }
             break;
         case "event":
-            String[] from = parts[1].split("/from");
-            String[] to = from[1].split("/to");
-            addTask(new Event(from[0], to[0], to[1]));
+            String task;
+            String schedule;
+            String startTime;
+            String endTime;
+
+            try {
+                String[] from = description.split("/from");
+                task = from[0];
+                schedule = from[1];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw MaryException.invalidDescription("please write in this format: event {name of the event} /from {time} /to {time}");
+            }
+            try {
+                String[] to = schedule.split("/to");
+                startTime = to[0];
+                endTime = to[1];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw MaryException.invalidDescription("please write in this format: event {name of the event} /from {time} /to {time}");
+            }
+            addTask(new Event(task, startTime, endTime));
             break;
         case "mark":
-            taskIdx = Integer.parseInt(parts[1]) - 1;
+            try {
+                taskIdx = Integer.parseInt(parts[1]) - 1;
+            } catch (NumberFormatException e) {
+                throw MaryException.invalidDescription("please write in this format: mark {number of the task e.g. 1}");
+            }
+            if (taskIdx < 0 || taskIdx >= numTasks) {
+                throw MaryException.invalidDescription("please write in this format: mark {number of the task e.g. 1}");
+            }
             markTask(taskIdx);
             break;
         case "unmark":
-            taskIdx = Integer.parseInt(parts[1]) - 1;
+            try {
+                taskIdx = Integer.parseInt(parts[1]) - 1;
+            } catch (NumberFormatException e) {
+                throw MaryException.invalidDescription("please write in this format: unmark {number of the task e.g. 1}");
+            }
+            if (taskIdx < 0 || taskIdx >= numTasks) {
+                throw MaryException.invalidDescription("please write in this format: unmark {number of the task e.g. 1}");
+            }
             unmarkTask(taskIdx);
             break;
+        default:
+            throw MaryException.invalidCommand(command);
         }
     }
 }

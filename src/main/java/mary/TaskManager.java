@@ -1,7 +1,9 @@
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+package mary;
+
+import mary.task.Deadline;
+import mary.task.Event;
+import mary.task.Task;
+import mary.task.Todo;
 
 public class TaskManager {
     public static final int MAX_TASKS = 100;

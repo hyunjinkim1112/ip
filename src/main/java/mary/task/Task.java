@@ -1,4 +1,4 @@
-package task;
+package mary.task;
 
 public class Task {
     protected String description;

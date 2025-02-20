@@ -1,53 +1,14 @@
 package mary;
-
+import java.util.ArrayList;
 import mary.task.Deadline;
 import mary.task.Event;
 import mary.task.Task;
 import mary.task.Todo;
 
 public class TaskManager {
-    public static final int MAX_TASKS = 100;
     public static final String LINE_SEPARATOR = "____________________________________________________________ ";
 
-    Task[] taskList = new Task[MAX_TASKS];
-    int numTasks = 0;
-
-    public void addTask(Task task) {
-        taskList[numTasks] = task;
-        numTasks++;
-        System.out.println(LINE_SEPARATOR + "\nGot it. I've added this task:");
-        System.out.println("\t" + task.toString());
-        System.out.println("Now you have " + numTasks + " task(s) in the list.");
-        System.out.println(LINE_SEPARATOR);
-    }
-
-    public void markTask(int taskIdx) {
-        taskList[taskIdx].setIsDone(true);
-        System.out.println(LINE_SEPARATOR + "\nNice! I've marked this task as done: ");
-        System.out.println("\t" + taskList[taskIdx].toString());
-        System.out.println(LINE_SEPARATOR);
-    }
-
-    public void unmarkTask(int taskIdx) {
-        taskList[taskIdx].setIsDone(false);
-        System.out.println(LINE_SEPARATOR + "\nNice! I've marked this task as not done yet: ");
-        System.out.println("\t" + taskList[taskIdx].toString());
-        System.out.println(LINE_SEPARATOR);
-    }
-
-    public void listTasks() {
-        if (numTasks == 0) {
-            System.out.println(LINE_SEPARATOR);
-            System.out.println("No tasks available.");
-            System.out.println(LINE_SEPARATOR);
-            return;
-        }
-        System.out.println(LINE_SEPARATOR +"\nHere are the tasks in your list:");
-        for (int i = 0; i < numTasks; i++) {
-            System.out.println("\t" + (i + 1) + ". " + taskList[i].toString());
-        }
-        System.out.println(LINE_SEPARATOR);
-    }
+    ArrayList<Task> tasks = new ArrayList<>();
 
     public void processCommand(String input) throws MaryException {
         String[] parts = input.split(" ", 2);
@@ -56,7 +17,7 @@ public class TaskManager {
         int taskIdx;
 
         if (command.equals("list")) {
-            listTasks();
+            printList();
             return;
         }
 
@@ -67,14 +28,26 @@ public class TaskManager {
         }
         switch (command) {
         case "todo":
-            addTask(new Todo(description, false));
+            Task newTask = new Todo(description, false);
+            tasks.add(newTask);
+            printAddMsg(tasks.size() - 1);
+            break;
+
+        case "delete":
+            try {
+                taskIdx = Integer.parseInt(parts[1]) - 1;
+            } catch (NumberFormatException e) {
+                throw MaryException.invalidDescription("please write in this format: delete {number of the task e.g. 1}");
+            }
+            tasks.remove(taskIdx);
+            printDeleteMsg(taskIdx);
             break;
         case "deadline":
             try {
                 String[] by = description.split("/by");
                 String task = by[0];
                 String deadline = by[1];
-                addTask(new Deadline(task, deadline));
+                tasks.add(new Deadline(task, deadline));
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw MaryException.invalidDescription("please write in this format: deadline {name of the event} /by {time}");
             }
@@ -99,7 +72,7 @@ public class TaskManager {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw MaryException.invalidDescription("please write in this format: event {name of the event} /from {time} /to {time}");
             }
-            addTask(new Event(task, startTime, endTime));
+            tasks.add(new Event(task, startTime, endTime));
             break;
         case "mark":
             try {
@@ -107,10 +80,11 @@ public class TaskManager {
             } catch (NumberFormatException e) {
                 throw MaryException.invalidDescription("please write in this format: mark {number of the task e.g. 1}");
             }
-            if (taskIdx < 0 || taskIdx >= numTasks) {
+            if (taskIdx < 0 || taskIdx >= tasks.size()) {
                 throw MaryException.invalidDescription("please write in this format: mark {number of the task e.g. 1}");
             }
-            markTask(taskIdx);
+            tasks.get(taskIdx).setIsDone(true);
+            printMarkMsg(taskIdx);
             break;
         case "unmark":
             try {
@@ -118,13 +92,54 @@ public class TaskManager {
             } catch (NumberFormatException e) {
                 throw MaryException.invalidDescription("please write in this format: unmark {number of the task e.g. 1}");
             }
-            if (taskIdx < 0 || taskIdx >= numTasks) {
+            if (taskIdx < 0 || taskIdx >= tasks.size()) {
                 throw MaryException.invalidDescription("please write in this format: unmark {number of the task e.g. 1}");
             }
-            unmarkTask(taskIdx);
+            tasks.get(taskIdx).setIsDone(false);
+            printUnmarkMsg(taskIdx);
             break;
         default:
             throw MaryException.invalidCommand(command);
         }
+    }
+
+    public void printAddMsg(int taskIdx) {
+        System.out.println(LINE_SEPARATOR + "\nGot it. I've added this task:");
+        System.out.println("\t" + tasks.get(taskIdx).toString());
+        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printDeleteMsg(int taskIdx) {
+        System.out.println(LINE_SEPARATOR + "\nNoted. I've removed this task:");
+        System.out.println("\t" + tasks.get(taskIdx).toString());
+        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printMarkMsg(int taskIdx) {
+        System.out.println(LINE_SEPARATOR + "\nNice! I've marked this task as done: ");
+        System.out.println("\t" + tasks.get(taskIdx).toString());
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printUnmarkMsg(int taskIdx) {
+        System.out.println(LINE_SEPARATOR + "\nNice! I've marked this task as not done yet: ");
+        System.out.println("\t" + tasks.get(taskIdx).toString());
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printList() {
+        if (tasks.isEmpty()) {
+            System.out.println(LINE_SEPARATOR);
+            System.out.println("No tasks available.");
+            System.out.println(LINE_SEPARATOR);
+            return;
+        }
+        System.out.println(LINE_SEPARATOR +"\nHere are the tasks in your list:");
+        for (Task task : tasks) {
+            System.out.println(task.toString());
+        }
+        System.out.println(LINE_SEPARATOR);
     }
 }

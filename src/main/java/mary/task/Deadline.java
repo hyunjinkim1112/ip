@@ -4,8 +4,9 @@ package mary.task;
 
 public class Deadline extends Task {
     protected String by;
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, false);
+        this.isDone = isDone;
         this.by = by;
     }
     @Override
@@ -14,6 +15,11 @@ public class Deadline extends Task {
     }
     @Override
     public String toString() {
-        return super.toString()  + " (by:" + by + ")";
+        return "[D]" + (isDone ? "[X] " : "[ ] ") + description + " (by: " + by + ")";
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
     }
 }

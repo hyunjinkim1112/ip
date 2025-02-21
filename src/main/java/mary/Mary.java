@@ -1,28 +1,27 @@
 package mary;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Mary {
-    public static final int MAX_TASKS = 100;
     public static final String LINE_SEPARATOR = "____________________________________________________________ ";
 
-    public static void main(String[] args) throws MaryException {
+    public static void main(String[] args) throws InvalidCommandException, FileNotFoundException {
         TaskManager manager = new TaskManager();
         Scanner scanner = new Scanner(System.in);
+        Parser parser = new Parser();
 
         printHello();
 
         while (true) {
             String command = scanner.nextLine();
 
-            if (command.equals("bye")) {
-                printBye();
-                break;
-            }
-
             try {
-                manager.processCommand(command);
-            } catch (MaryException e) {
+                parser.processCommand(command, manager);
+                if (command.equals("bye")) {
+                    break;
+                }
+            } catch (InvalidCommandException e) {
                 printError(e.getMessage());
             }
         }
@@ -58,5 +57,6 @@ public class Mary {
         System.out.println("[ Please refer to the error message ] \n- [error]: "+ message);
         System.out.println(LINE_SEPARATOR);
     }
+
 }
 

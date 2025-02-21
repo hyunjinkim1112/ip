@@ -32,7 +32,7 @@ public class Mary {
         System.out.println("Hello! I'm Mary");
         System.out.println("What can I do for you?");
         System.out.println(LINE_SEPARATOR);
-        System.out.println("Enter command (todo, deadline, event, list, mark, unmark, bye): ");
+        System.out.println("Enter command (todo, deadline, event, remove, list, mark, unmark, bye): ");
         System.out.println("[ Please follow the format below ]");
         System.out.println("- todo {short description}");
         System.out.println("- deadline {short description} /by {time}");

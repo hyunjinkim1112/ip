@@ -13,12 +13,15 @@ public class Parser {
         switch (parts[0]) {
         case "todo":
             taskManager.addTask(new Todo(parts[1], false));
+            taskManager.saveTasks();
             break;
         case "deadline":
             taskManager.addTask(parseDeadline(parts[1]));
+            taskManager.saveTasks();
             break;
         case "event":
             taskManager.addTask(parseEvent(parts[1]));
+            taskManager.saveTasks();
             break;
         case "remove":
             try {
@@ -28,6 +31,7 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidCommandException("Invalid task index");
             }
+            taskManager.saveTasks();
             break;
         case "mark":
             try {
@@ -37,6 +41,7 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidCommandException("Invalid task index");
             }
+            taskManager.saveTasks();
             break;
         case "unmark":
             try {
@@ -46,6 +51,7 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidCommandException("Invalid task index");
             }
+            taskManager.saveTasks();
             break;
         case "list":
             taskManager.displayTasks();

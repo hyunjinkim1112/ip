@@ -1,0 +1,4 @@
+T | 0 | eat ice cream
+D | 0 | do hw | 12pm
+T | 0 | eat lunch
+D | 0 | eat lunch | 7pm

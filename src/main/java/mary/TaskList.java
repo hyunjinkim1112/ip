@@ -1,22 +1,17 @@
 package mary;
 
-import mary.task.Deadline;
-import mary.task.Event;
 import mary.task.Task;
-import mary.task.Todo;
 
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
     public static final String LINE_SEPARATOR = "____________________________________________________________ ";
     private ArrayList<Task> tasks;
-    Storage storage;
 
-    public TaskManager() throws FileNotFoundException {
-        this.storage = new Storage("./data/mary.txt");
-        this.tasks = storage.loadFromFile();
+    public TaskList(ArrayList<Task> tasks) throws FileNotFoundException {
+        this.tasks = tasks;
         if (tasks.isEmpty()) {
             System.out.println("No tasks loaded from the file.");
         }
@@ -66,9 +61,8 @@ public class TaskManager {
         }
         System.out.println(LINE_SEPARATOR);
     }
-
-    public void saveTasks() {
-        storage.saveToFile(tasks);
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
     public int getTaskCount() {
         return tasks.size();

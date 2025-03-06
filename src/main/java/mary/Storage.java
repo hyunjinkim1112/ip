@@ -47,7 +47,6 @@ public class Storage {
         try (Scanner s = new Scanner(f)) { // Use try-with-resources
             while (s.hasNextLine()) {
                 String line = s.nextLine();
-//                System.out.println(line);
                 Task task = Task.fromFileFormat(line); // Convert line to Task
                 if (task != null) {
                     tasks.add(task);

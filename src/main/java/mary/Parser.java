@@ -4,7 +4,7 @@ import mary.task.Event;
 import mary.task.Todo;
 
 public class Parser {
-    public static void processCommand(String command, TaskManager taskManager) throws InvalidCommandException {
+    public static void processCommand(String command, TaskList taskList) throws InvalidCommandException {
         String[] parts = command.split(" ", 2);
 //        if (parts.length < 2) {
 //            throw new InvalidCommandException("Error: Task description cannot be empty.");
@@ -12,52 +12,52 @@ public class Parser {
 
         switch (parts[0]) {
         case "todo":
-            taskManager.addTask(new Todo(parts[1], false));
-            taskManager.saveTasks();
+            taskList.addTask(new Todo(parts[1], false));
+//            taskList.saveTasks();
             break;
         case "deadline":
-            taskManager.addTask(parseDeadline(parts[1]));
-            taskManager.saveTasks();
+            taskList.addTask(parseDeadline(parts[1]));
+//            taskList.saveTasks();
             break;
         case "event":
-            taskManager.addTask(parseEvent(parts[1]));
-            taskManager.saveTasks();
+            taskList.addTask(parseEvent(parts[1]));
+//            taskList.saveTasks();
             break;
         case "remove":
             try {
-                taskManager.removeTask(Integer.parseInt(parts[1]) - 1);
+                taskList.removeTask(Integer.parseInt(parts[1]) - 1);
             } catch (NumberFormatException e) {
                 throw new InvalidCommandException("Invalid task index");
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidCommandException("Invalid task index");
             }
-            taskManager.saveTasks();
+//            taskList.saveTasks();
             break;
         case "mark":
             try {
-                taskManager.markTask(Integer.parseInt(parts[1]) - 1);
+                taskList.markTask(Integer.parseInt(parts[1]) - 1);
             } catch (NumberFormatException e) {
                 throw new InvalidCommandException("Invalid task index");
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidCommandException("Invalid task index");
             }
-            taskManager.saveTasks();
+//            taskList.saveTasks();
             break;
         case "unmark":
             try {
-                taskManager.unmarkTask(Integer.parseInt(parts[1]) - 1);
+                taskList.unmarkTask(Integer.parseInt(parts[1]) - 1);
             } catch (NumberFormatException e) {
                 throw new InvalidCommandException("Invalid task index");
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidCommandException("Invalid task index");
             }
-            taskManager.saveTasks();
+//            taskList.saveTasks();
             break;
         case "list":
-            taskManager.displayTasks();
+            taskList.displayTasks();
             break;
         case "bye":
-            taskManager.saveTasks();
+//            taskList.saveTasks();
             break;
         default:
             throw new InvalidCommandException("Invalid command");

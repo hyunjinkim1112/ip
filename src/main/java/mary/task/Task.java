@@ -70,35 +70,4 @@ public abstract class Task {
         return new Event(description, isDone, from, to);
     }
 
-//    public static Task fromFileFormat(String line) {
-//        String[] parts = line.split(" | ");
-//        String[] parts2 = parts[1].split(" | ");
-//        String[] parts3;
-//        String[] parts4;
-//
-//        String type = parts[0];
-//        boolean isDone = parts2[0].equals("X")? true : false;;
-//        String description;
-//        Task task = null;
-//
-//        switch (type) {
-//            case "T":
-//                description = parts2[1];
-//                task = new Todo(description, isDone);
-//            case "D":
-//                parts3 = parts2[1].split(" | ");
-//                description = parts3[0];
-//                String by = parts3[1];
-//                task = new Deadline(description, by);
-//            case "E":
-//                parts3 = parts2[1].split(" | ");
-//                parts4 = parts3[1].split(" | ");
-//                description = parts3[0];
-//                String from = parts4[0];
-//                String to = parts4[1];
-//                task = new Event(description, from, to);
-//        }
-//        return task;
-//    };
-
 }

@@ -1,27 +1,28 @@
+/**
+ * This class represents a parser to process the user inputs.
+ */
+
 package mary;
 import mary.task.Deadline;
 import mary.task.Event;
 import mary.task.Todo;
 
 public class Parser {
+    /**
+     * Processes the user inputs.
+     */
     public static void processCommand(String command, TaskList taskList) throws InvalidCommandException {
         String[] parts = command.split(" ", 2);
-//        if (parts.length < 2) {
-//            throw new InvalidCommandException("Error: Task description cannot be empty.");
-//        }
 
         switch (parts[0]) {
         case "todo":
             taskList.addTask(new Todo(parts[1], false));
-//            taskList.saveTasks();
             break;
         case "deadline":
             taskList.addTask(parseDeadline(parts[1]));
-//            taskList.saveTasks();
             break;
         case "event":
             taskList.addTask(parseEvent(parts[1]));
-//            taskList.saveTasks();
             break;
         case "remove":
             try {
@@ -31,7 +32,6 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidCommandException("Invalid task index");
             }
-//            taskList.saveTasks();
             break;
         case "mark":
             try {
@@ -41,7 +41,6 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidCommandException("Invalid task index");
             }
-//            taskList.saveTasks();
             break;
         case "unmark":
             try {
@@ -51,19 +50,25 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidCommandException("Invalid task index");
             }
-//            taskList.saveTasks();
             break;
         case "list":
             taskList.displayTasks();
             break;
+
+        case "find":
+            String keyword = parts[1].trim();
+            taskList.findTask(keyword);
+            break;
         case "bye":
-//            taskList.saveTasks();
             break;
         default:
             throw new InvalidCommandException("Invalid command");
         }
     }
 
+    /**
+     * Processes the user input when the command is "Deadline".
+     */
     private static Deadline parseDeadline(String details) throws InvalidCommandException{
         String[] parts = details.split(" /by ", 2);
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
@@ -71,6 +76,10 @@ public class Parser {
         }
         return new Deadline(parts[0].trim(), false, parts[1].trim());
     }
+
+    /**
+     * Processes the user input when the command is "Event".
+     */
     private static Event parseEvent(String details) throws InvalidCommandException{
         String[] parts = details.split(" /from ", 2);
         if (parts.length < 2 || parts[0].trim().isEmpty()) {

@@ -16,6 +16,7 @@ public class Ui {
         System.out.println("- list");
         System.out.println("- mark {number of the task}");
         System.out.println("- unmark {number of the task}");
+        System.out.println("- find {a word in the task you are looking for}");
         System.out.println("- bye");
         System.out.println(LINE_SEPARATOR);
 

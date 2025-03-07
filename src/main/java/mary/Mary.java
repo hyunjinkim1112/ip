@@ -2,14 +2,18 @@ package mary;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
+/**
+ * This class represents a simple chatbot called "Mary".
+ */
 public class Mary {
     private Storage storage;
     private Scanner scanner;
     private TaskList taskList;
     private Ui ui;
     private Parser parser;
-
+    /**
+     * Constructor for Mary class.
+     */
     public Mary(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
@@ -20,7 +24,9 @@ public class Mary {
             ui.showLoadingError();
         }
     }
-
+    /**
+     * Runs the Mary program.
+     */
     public void run() {
         ui.printHello();
         while (true) {
@@ -37,6 +43,9 @@ public class Mary {
         }
         storage.saveToFile(taskList.getTasks());
     }
+    /**
+     * Main method for Mary class
+     */
     public static void main(String[] args) {
         new Mary("./data/mary.txt").run();
     }

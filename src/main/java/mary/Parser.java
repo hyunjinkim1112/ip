@@ -56,6 +56,11 @@ public class Parser {
         case "list":
             taskList.displayTasks();
             break;
+
+        case "find":
+            String keyword = parts[1].trim();
+            taskList.findTask(keyword);
+            break;
         case "bye":
 //            taskList.saveTasks();
             break;

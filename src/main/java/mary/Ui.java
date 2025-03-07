@@ -11,9 +11,17 @@ public class Ui {
     public static void printHello() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("Hello! I'm Mary");
+        System.out.println("  __  __                  ");
+        System.out.println(" |  \\/  |                 ");
+        System.out.println(" | \\  / | __ _ _ __ _   _ ");
+        System.out.println(" | |\\/| |/ _` | '__| | | |");
+        System.out.println(" | |  | | (_| | |  | |_| |");
+        System.out.println(" |_|  |_|\\__,_|_|   \\__, |");
+        System.out.println("                     __/ |");
+        System.out.println("                    |___/ ");
         System.out.println("What can I do for you?");
         System.out.println(LINE_SEPARATOR);
-        System.out.println("Enter command (todo, deadline, event, remove, list, mark, unmark, bye): ");
+        System.out.println("Enter command (todo, deadline, event, remove, list, mark, unmark, find, bye): ");
         System.out.println("[ Please follow the format below ]");
         System.out.println("- todo {short description}");
         System.out.println("- deadline {short description} /by {time}");

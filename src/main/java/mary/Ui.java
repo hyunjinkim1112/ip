@@ -1,8 +1,13 @@
+/**
+ * This represents a UI for the user input.
+ */
 package mary;
 
 public class Ui {
     public static final String LINE_SEPARATOR = "____________________________________________________________ ";
-
+    /**
+     * Prints hello message
+     */
     public static void printHello() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("Hello! I'm Mary");
@@ -21,20 +26,26 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
 
     }
-
+    /**
+     * Prints bye message
+     */
     public static void printBye() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE_SEPARATOR);
     }
-
+    /**
+     * Prints error message
+     */
     public static void printError(String message) {
         System.out.println(LINE_SEPARATOR);
         System.out.println("OOPS! Your input is invalid.");
         System.out.println("[ Please refer to the error message ] \n- [error]: "+ message);
         System.out.println(LINE_SEPARATOR);
     }
-
+    /**
+     * Prints the error message when the file could not be loaded
+     */
     public static void showLoadingError() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("The file could not be loaded.");

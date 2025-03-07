@@ -32,7 +32,7 @@ public class TaskList {
         System.out.println(LINE_SEPARATOR);
     }
     /**
-     * Removes a new task from the list 
+     * Removes a new task from the list
      */
     public void removeTask(int index) {
         Task removedTask = tasks.remove(index);
@@ -42,21 +42,27 @@ public class TaskList {
         System.out.println(LINE_SEPARATOR);
 
     }
-
+    /**
+     * Marks a given task as done
+     */
     public void markTask(int index) {
         tasks.get(index).markAsDone();
         System.out.println(LINE_SEPARATOR + "\nNice! I've marked this task as done: ");
         System.out.println("\t" + tasks.get(index).toString());
         System.out.println(LINE_SEPARATOR);
     }
-
+    /**
+     * Marks a given task as undone
+     */
     public void unmarkTask(int index) {
         tasks.get(index).markAsNotDone();
         System.out.println(LINE_SEPARATOR + "\nNice! I've marked this task as not done yet: ");
         System.out.println("\t" + tasks.get(index).toString());
         System.out.println(LINE_SEPARATOR);
     }
-
+    /**
+     * Display the list
+     */
     public void displayTasks() {
         if (tasks.isEmpty()) {
             System.out.println(LINE_SEPARATOR);
@@ -70,7 +76,9 @@ public class TaskList {
         }
         System.out.println(LINE_SEPARATOR);
     }
-
+    /**
+     * Find a task that has the given keyword
+     */
     public void findTask(String keyword) {
         System.out.println(LINE_SEPARATOR);
         System.out.println("Here are the matching tasks in your list.");
@@ -83,9 +91,15 @@ public class TaskList {
         }
         System.out.println(LINE_SEPARATOR);
     }
+    /**
+     * Returns the arraylist "tasks"
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+    /**
+     * Returns the number of tasks in the list
+     */
     public int getTaskCount() {
         return tasks.size();
     }

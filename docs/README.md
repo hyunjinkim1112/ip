@@ -4,10 +4,10 @@
 This is a Java chatbot which has simple features to manage your schedule. 
 
 ## Adding todos
-adds a todo item to the list 
-Format: `todo {short description}`
-Example: `todo eat lunch with Sam`
-Expected Output: 
+adds a todo item to the list  <br>
+**Format:** `todo {short description}`<br>
+**Example:** `todo eat lunch with Sam`<br>
+**Expected Output:** 
 ```
 ____________________________________________________________ 
 Got it. I've added this task:
@@ -16,10 +16,10 @@ Now you have 1 task(s) in the list.
 ____________________________________________________________ 
 ```
 ## Adding deadlines
-adds a deadline item to the list
-Format: `deadline {short description} /by {time}`
-Example: `deadline finish hw /by 02-03-2025 3pm`
-Expected Output:
+adds a deadline item to the list <br>
+**Format:** `deadline {short description} /by {time}`<br>
+**Example:** `deadline finish hw /by 02-03-2025 3pm`<br>
+**Expected Output:**
 ```
 ____________________________________________________________ 
 Got it. I've added this task:
@@ -28,10 +28,10 @@ Now you have 2 task(s) in the list.
 ____________________________________________________________ 
 ```
 ## Adding events
-adds a event item to the list
-Format: `event {short description} /from {time} /to {time}`
-Example: `event field trip to Vietnam /from 02-05-2025 /to 02-10-2025`
-Expected Output:
+adds a event item to the list<br>
+**Format:** `event {short description} /from {time} /to {time}`<br>
+**Example:** `event field trip to Vietnam /from 02-05-2025 /to 02-10-2025`<br>
+**Expected Output:**
 ```
 ____________________________________________________________ 
 Got it. I've added this task:
@@ -41,10 +41,10 @@ ____________________________________________________________
 ```
 
 ## Displaying the list 
-displays all the items in the list 
-Format: `list`
-Example: `list`
-Expected Output:
+displays all the items in the list <br>
+**Format:** `list`<br>
+**Example:** `list`<br>
+**Expected Output:**
 ```
 ____________________________________________________________ 
 Here are the tasks in your list:
@@ -56,10 +56,10 @@ ____________________________________________________________
 ```
 
 ## Marking the given task as done 
-marks the given item as done
-Format: `mark {number of the task}`
-Example: `mark 1`
-Expected Output:
+marks the given item as done<br>
+**Format:** `mark {number of the task}`<br>
+**Example:** `mark 1`<br>
+**Expected Output:**
 ```
 ____________________________________________________________ 
 Nice! I've marked this task as done: 
@@ -68,10 +68,10 @@ ____________________________________________________________
 ```
 
 ## Marking the given task as undone
-marks the given item as undone
-Format: `unmark {number of the task}`
-Example: `unmark 1`
-Expected Output:
+marks the given item as undone<br>
+**Format:** `unmark {number of the task}`<br>
+**Example:** `unmark 1`<br>
+**Expected Output:**
 ```
 ____________________________________________________________ 
 Nice! I've marked this task as not done yet: 
@@ -79,10 +79,10 @@ Nice! I've marked this task as not done yet:
 ____________________________________________________________ 
 ```
 ## Finding the task with the given keyword
-finds the task items with the given keyword from the list and shows them 
-Format: `find {a word in the task you are looking for}`
-Example: `find trip`
-Expected Output:
+finds the task items with the given keyword from the list and shows them <br>
+**Format:** `find {a word in the task you are looking for}`<br>
+**Example:** `find trip`<br>
+**Expected Output:**
 ```
 ____________________________________________________________ 
 Here are the matching tasks in your list.
@@ -92,10 +92,10 @@ ____________________________________________________________
 ```
 
 ## Terminating the program 
-ends the program 
-Format: `bye`
-Example: `bye`
-Expected Output:
+ends the program <br>
+**Format:** `bye`<br>
+**Example:** `bye`<br>
+**Expected Output:**
 ```
 Saving 3 tasks to ./data/mary.txt
 ```

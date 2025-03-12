@@ -1,7 +1,5 @@
 package mary.task;
 
-//import mary.task.Task;
-
 public class Event extends Task {
     protected String from;
     protected String to;

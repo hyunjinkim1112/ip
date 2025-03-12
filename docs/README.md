@@ -3,7 +3,7 @@
 ![img.png](img.png)
 This is a Java chatbot which has simple features to manage your schedule. 
 
-## Adding todos
+## Adding todos ```todo```
 adds a todo item to the list  <br>
 **Format:** `todo {short description}`<br>
 **Example:** `todo eat lunch with Sam`<br>
@@ -15,7 +15,7 @@ Got it. I've added this task:
 Now you have 1 task(s) in the list.
 ____________________________________________________________ 
 ```
-## Adding deadlines
+## Adding deadlines ```deadline```
 adds a deadline item to the list <br>
 **Format:** `deadline {short description} /by {time}`<br>
 **Example:** `deadline finish hw /by 02-03-2025 3pm`<br>
@@ -27,7 +27,7 @@ Got it. I've added this task:
 Now you have 2 task(s) in the list.
 ____________________________________________________________ 
 ```
-## Adding events
+## Adding events ```event```
 adds a event item to the list<br>
 **Format:** `event {short description} /from {time} /to {time}`<br>
 **Example:** `event field trip to Vietnam /from 02-05-2025 /to 02-10-2025`<br>
@@ -40,7 +40,7 @@ Now you have 3 task(s) in the list.
 ____________________________________________________________ 
 ```
 
-## Displaying the list 
+## Displaying the list ```list```
 displays all the items in the list <br>
 **Format:** `list`<br>
 **Example:** `list`<br>
@@ -55,7 +55,7 @@ ____________________________________________________________
 
 ```
 
-## Marking the given task as done 
+## Marking the given task as done ```mark```
 marks the given item as done<br>
 **Format:** `mark {number of the task}`<br>
 **Example:** `mark 1`<br>
@@ -67,7 +67,7 @@ Nice! I've marked this task as done:
 ____________________________________________________________ 
 ```
 
-## Marking the given task as undone
+## Marking the given task as undone ```unmark```
 marks the given item as undone<br>
 **Format:** `unmark {number of the task}`<br>
 **Example:** `unmark 1`<br>
@@ -78,7 +78,7 @@ Nice! I've marked this task as not done yet:
 	[T][ ] eat lunch with Sam
 ____________________________________________________________ 
 ```
-## Finding the task with the given keyword
+## Finding the task with the given keyword ```find```
 finds the task items with the given keyword from the list and shows them <br>
 **Format:** `find {a word in the task you are looking for}`<br>
 **Example:** `find trip`<br>
@@ -91,7 +91,7 @@ ____________________________________________________________
 
 ```
 
-## Terminating the program 
+## Terminating the program ```bye```
 ends the program <br>
 **Format:** `bye`<br>
 **Example:** `bye`<br>

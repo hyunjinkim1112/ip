@@ -83,11 +83,16 @@ public class TaskList {
         System.out.println(LINE_SEPARATOR);
         System.out.println("Here are the matching tasks in your list.");
         int index = 1;
+        boolean isInList = false;
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).toString().contains(keyword)) {
                 System.out.println("\t" + index + ". " + tasks.get(i).toString());
                 index++;
+                isInList = true;
             }
+        }
+        if (!isInList) {
+            System.out.println("\t" + "- There is no matching task.");
         }
         System.out.println(LINE_SEPARATOR);
     }

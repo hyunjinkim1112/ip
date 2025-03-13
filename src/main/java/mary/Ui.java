@@ -26,6 +26,7 @@ public class Ui {
         System.out.println("- todo {short description}");
         System.out.println("- deadline {short description} /by {time}");
         System.out.println("- event {short description} /from {time} /to {time}");
+        System.out.println("- remove {number of the task}");
         System.out.println("- list");
         System.out.println("- mark {number of the task}");
         System.out.println("- unmark {number of the task}");

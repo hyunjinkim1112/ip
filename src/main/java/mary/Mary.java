@@ -34,6 +34,7 @@ public class Mary {
             String command = scanner.nextLine();
             try {
                 parser.processCommand(command, taskList);
+                storage.saveToFile(taskList.getTasks()); // in case the program is not terminated with "bye" command
                 if (command.equals("bye")) {
                     break;
                 }

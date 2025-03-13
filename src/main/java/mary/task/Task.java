@@ -30,41 +30,42 @@ public abstract class Task {
     public abstract String toFileFormat();
     public static Task fromFileFormat(String line) {
         Task task = null;
-        String[] parts = line.split("\\|",2);
+        String[] parts = line.split("\\|");
 
         switch (parts[0].trim()) {
-        case ("T"):
-            task = fromFileFormatTodo(parts[1]);
+        case "T":
+            task = fromFileFormatTodo(parts);
             break;
-        case ("D"):
-            task = fromFileFormatDeadline(parts[1]);
+        case "D":
+            task = fromFileFormatDeadline(parts);
             break;
-        case ("E"):
-            task = fromFileFormatEvent(parts[1]);
+        case "E":
+            task = fromFileFormatEvent(parts);
             break;
+        default:
+            throw new IllegalArgumentException("Unknown task type: " + parts[0]);
         }
         return task;
     }
 
-    private static Task fromFileFormatTodo(String line) {
-        String[] parts = line.split("\\|");
-        boolean isDone = parts[0].trim().equals("1") ? true : false;
-        String description = parts[1].trim();
+    private static Task fromFileFormatTodo(String[] parts) {
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
         return new Todo(description, isDone);
     }
-    private static Task fromFileFormatDeadline(String line) {
-        String[] parts = line.split("\\|");
-        boolean isDone = parts[0].trim().equals("1") ? true : false;
-        String description = parts[1].trim();
-        String by = parts[2].trim();
+
+    private static Task fromFileFormatDeadline(String[] parts) {
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+        String by = parts[3].trim();
         return new Deadline(description, isDone, by);
     }
-    private static Task fromFileFormatEvent(String line) {
-        String[] parts = line.split("\\|");
-        boolean isDone = parts[0].trim().equals("1") ? true : false;
-        String description = parts[1].trim();
-        String from = parts[1].trim();
-        String to = parts[2].trim();
+
+    private static Task fromFileFormatEvent(String[] parts) {
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+        String from = parts[3].trim();
+        String to = parts[4].trim();
         return new Event(description, isDone, from, to);
     }
 
